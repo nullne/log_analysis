@@ -1,0 +1,1209 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE TABLE auth_group (
+    id integer NOT NULL,
+    name character varying(80) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO redhat;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: redhat
+--
+
+CREATE SEQUENCE auth_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO redhat;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: redhat
+--
+
+ALTER SEQUENCE auth_group_id_seq OWNED BY auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE TABLE auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO redhat;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: redhat
+--
+
+CREATE SEQUENCE auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO redhat;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: redhat
+--
+
+ALTER SEQUENCE auth_group_permissions_id_seq OWNED BY auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE TABLE auth_permission (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO redhat;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: redhat
+--
+
+CREATE SEQUENCE auth_permission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO redhat;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: redhat
+--
+
+ALTER SEQUENCE auth_permission_id_seq OWNED BY auth_permission.id;
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE TABLE auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone NOT NULL,
+    is_superuser boolean NOT NULL,
+    username character varying(30) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(30) NOT NULL,
+    email character varying(75) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.auth_user OWNER TO redhat;
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE TABLE auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_groups OWNER TO redhat;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: redhat
+--
+
+CREATE SEQUENCE auth_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_groups_id_seq OWNER TO redhat;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: redhat
+--
+
+ALTER SEQUENCE auth_user_groups_id_seq OWNED BY auth_user_groups.id;
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: redhat
+--
+
+CREATE SEQUENCE auth_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_id_seq OWNER TO redhat;
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: redhat
+--
+
+ALTER SEQUENCE auth_user_id_seq OWNED BY auth_user.id;
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE TABLE auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_user_permissions OWNER TO redhat;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: redhat
+--
+
+CREATE SEQUENCE auth_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO redhat;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: redhat
+--
+
+ALTER SEQUENCE auth_user_user_permissions_id_seq OWNED BY auth_user_user_permissions.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE TABLE django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    user_id integer NOT NULL,
+    content_type_id integer,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO redhat;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: redhat
+--
+
+CREATE SEQUENCE django_admin_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO redhat;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: redhat
+--
+
+ALTER SEQUENCE django_admin_log_id_seq OWNED BY django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE TABLE django_content_type (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO redhat;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: redhat
+--
+
+CREATE SEQUENCE django_content_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO redhat;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: redhat
+--
+
+ALTER SEQUENCE django_content_type_id_seq OWNED BY django_content_type.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE TABLE django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO redhat;
+
+--
+-- Name: view_entry; Type: TABLE; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE TABLE view_entry (
+    id integer NOT NULL,
+    "logAnalysis_id" integer NOT NULL,
+    name character varying(255) NOT NULL,
+    entry_type character varying(10) NOT NULL,
+    average double precision NOT NULL,
+    micros double precision NOT NULL,
+    times integer NOT NULL
+);
+
+
+ALTER TABLE public.view_entry OWNER TO redhat;
+
+--
+-- Name: view_entry_id_seq; Type: SEQUENCE; Schema: public; Owner: redhat
+--
+
+CREATE SEQUENCE view_entry_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.view_entry_id_seq OWNER TO redhat;
+
+--
+-- Name: view_entry_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: redhat
+--
+
+ALTER SEQUENCE view_entry_id_seq OWNED BY view_entry.id;
+
+
+--
+-- Name: view_loganalysis; Type: TABLE; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE TABLE view_loganalysis (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    project character varying(255) NOT NULL,
+    manipulate_time timestamp with time zone NOT NULL,
+    start_time timestamp with time zone NOT NULL,
+    end_time timestamp with time zone NOT NULL,
+    page_config character varying(255) NOT NULL,
+    query_config character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.view_loganalysis OWNER TO redhat;
+
+--
+-- Name: view_loganalysis_id_seq; Type: SEQUENCE; Schema: public; Owner: redhat
+--
+
+CREATE SEQUENCE view_loganalysis_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.view_loganalysis_id_seq OWNER TO redhat;
+
+--
+-- Name: view_loganalysis_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: redhat
+--
+
+ALTER SEQUENCE view_loganalysis_id_seq OWNED BY view_loganalysis.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: redhat
+--
+
+ALTER TABLE ONLY auth_group ALTER COLUMN id SET DEFAULT nextval('auth_group_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: redhat
+--
+
+ALTER TABLE ONLY auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: redhat
+--
+
+ALTER TABLE ONLY auth_permission ALTER COLUMN id SET DEFAULT nextval('auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: redhat
+--
+
+ALTER TABLE ONLY auth_user ALTER COLUMN id SET DEFAULT nextval('auth_user_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: redhat
+--
+
+ALTER TABLE ONLY auth_user_groups ALTER COLUMN id SET DEFAULT nextval('auth_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: redhat
+--
+
+ALTER TABLE ONLY auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: redhat
+--
+
+ALTER TABLE ONLY django_admin_log ALTER COLUMN id SET DEFAULT nextval('django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: redhat
+--
+
+ALTER TABLE ONLY django_content_type ALTER COLUMN id SET DEFAULT nextval('django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: redhat
+--
+
+ALTER TABLE ONLY view_entry ALTER COLUMN id SET DEFAULT nextval('view_entry_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: redhat
+--
+
+ALTER TABLE ONLY view_loganalysis ALTER COLUMN id SET DEFAULT nextval('view_loganalysis_id_seq'::regclass);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: redhat
+--
+
+COPY auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: redhat
+--
+
+SELECT pg_catalog.setval('auth_group_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: redhat
+--
+
+COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: redhat
+--
+
+SELECT pg_catalog.setval('auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: redhat
+--
+
+COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can add permission	2	add_permission
+5	Can change permission	2	change_permission
+6	Can delete permission	2	delete_permission
+7	Can add group	3	add_group
+8	Can change group	3	change_group
+9	Can delete group	3	delete_group
+10	Can add user	4	add_user
+11	Can change user	4	change_user
+12	Can delete user	4	delete_user
+13	Can add content type	5	add_contenttype
+14	Can change content type	5	change_contenttype
+15	Can delete content type	5	delete_contenttype
+16	Can add session	6	add_session
+17	Can change session	6	change_session
+18	Can delete session	6	delete_session
+19	Can add log analysis	7	add_loganalysis
+20	Can change log analysis	7	change_loganalysis
+21	Can delete log analysis	7	delete_loganalysis
+22	Can add entry	8	add_entry
+23	Can change entry	8	change_entry
+24	Can delete entry	8	delete_entry
+\.
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: redhat
+--
+
+SELECT pg_catalog.setval('auth_permission_id_seq', 24, true);
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: redhat
+--
+
+COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+1	pbkdf2_sha256$12000$j9CjTX6BSKVB$C9rD+AupuDpQa0vVR4nqVyR88eok7fnp9PdENPS+S54=	2014-07-15 13:21:13.366389+08	t	nullne			leyu@redhat.com	t	t	2014-06-30 11:15:48.773756+08
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: redhat
+--
+
+COPY auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: redhat
+--
+
+SELECT pg_catalog.setval('auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: redhat
+--
+
+SELECT pg_catalog.setval('auth_user_id_seq', 1, true);
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: redhat
+--
+
+COPY auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: redhat
+--
+
+SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: redhat
+--
+
+COPY django_admin_log (id, action_time, user_id, content_type_id, object_id, object_repr, action_flag, change_message) FROM stdin;
+1	2014-07-09 12:43:29.313894+08	1	7	23	ls	3	
+2	2014-07-09 12:43:29.355162+08	1	7	22		3	
+3	2014-07-10 17:56:19.734177+08	1	7	32	fuck you	3	
+4	2014-07-11 13:48:41.493502+08	1	7	36	log2014-07-11	3	
+5	2014-07-11 13:48:41.518585+08	1	7	33	fuck you	3	
+6	2014-07-11 13:52:41.998891+08	1	7	37	log2014-07-11	3	
+7	2014-07-11 14:46:08.059502+08	1	7	38	log_2014-07-11	3	
+8	2014-07-11 14:53:28.870249+08	1	7	39	log_2014-07-11	3	
+9	2014-07-11 15:06:51.346755+08	1	7	40	log_2014-07-11	3	
+10	2014-07-11 16:10:21.888729+08	1	7	41	log_2014-07-11	3	
+11	2014-07-14 11:13:55.712794+08	1	7	42	log_2014-07-14	3	
+12	2014-07-14 11:14:10.215878+08	1	7	31	3001 float	3	
+13	2014-07-14 11:14:10.231951+08	1	7	30	0708 float	3	
+14	2014-07-14 11:14:10.240312+08	1	7	29	nice shot	3	
+15	2014-07-14 11:14:10.248614+08	1	7	28	test float	3	
+16	2014-07-14 11:14:10.256896+08	1	7	27	0708 first test	3	
+17	2014-07-14 11:14:10.265246+08	1	7	26	0630 first test	3	
+18	2014-07-14 11:14:10.273576+08	1	7	25	1 new machine	3	
+19	2014-07-14 11:14:10.281919+08	1	7	24	30 new machine	3	
+20	2014-07-14 11:14:10.290261+08	1	7	21	bad test	3	
+21	2014-07-14 11:14:10.298615+08	1	7	20	nice nice 	3	
+22	2014-07-14 11:14:10.306931+08	1	7	19	nice one	3	
+23	2014-07-14 11:14:10.315241+08	1	7	18	third test	3	
+24	2014-07-14 11:14:10.323606+08	1	7	17	second test	3	
+25	2014-07-14 11:14:10.331944+08	1	7	16	first test	3	
+26	2014-07-15 13:21:29.01162+08	1	7	43	log_2014-07-15	3	
+\.
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: redhat
+--
+
+SELECT pg_catalog.setval('django_admin_log_id_seq', 26, true);
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: redhat
+--
+
+COPY django_content_type (id, name, app_label, model) FROM stdin;
+1	log entry	admin	logentry
+2	permission	auth	permission
+3	group	auth	group
+4	user	auth	user
+5	content type	contenttypes	contenttype
+6	session	sessions	session
+7	log analysis	view	loganalysis
+8	entry	view	entry
+\.
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: redhat
+--
+
+SELECT pg_catalog.setval('django_content_type_id_seq', 8, true);
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: redhat
+--
+
+COPY django_session (session_key, session_data, expire_date) FROM stdin;
+zkjot95uv0uuux655f6463xuuo20sy4z	ODQ4NzViMWVkYmI3MWQ4NDk3NWYwNDk4NGEzZGQ3OTE4MWFiMjNmNjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=	2014-07-14 16:05:44.756843+08
+tc2xofuwv690o0yesdvaebyf4sl2g44j	ODQ4NzViMWVkYmI3MWQ4NDk3NWYwNDk4NGEzZGQ3OTE4MWFiMjNmNjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=	2014-07-14 18:03:07.654305+08
+3oxpxva9tps9p8as5bpkr787yybek28b	ODQ4NzViMWVkYmI3MWQ4NDk3NWYwNDk4NGEzZGQ3OTE4MWFiMjNmNjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=	2014-07-17 13:54:29.928944+08
+3wtycq0xfty0skir1ft8tlsrwjr0dlis	ODQ4NzViMWVkYmI3MWQ4NDk3NWYwNDk4NGEzZGQ3OTE4MWFiMjNmNjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=	2014-07-17 15:22:40.893076+08
+g149gqzs773ffff6akk3dxdg5ku9lig9	ODQ4NzViMWVkYmI3MWQ4NDk3NWYwNDk4NGEzZGQ3OTE4MWFiMjNmNjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=	2014-07-17 16:07:19.825805+08
+sdukore14t9xw8zxvi4llc15rfhspdh0	ODQ4NzViMWVkYmI3MWQ4NDk3NWYwNDk4NGEzZGQ3OTE4MWFiMjNmNjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=	2014-07-17 16:16:46.514327+08
+wf3mchg9wm0w7bvqrp4xht3ewydn7xkt	ODQ4NzViMWVkYmI3MWQ4NDk3NWYwNDk4NGEzZGQ3OTE4MWFiMjNmNjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=	2014-07-29 13:21:13.391596+08
+\.
+
+
+--
+-- Data for Name: view_entry; Type: TABLE DATA; Schema: public; Owner: redhat
+--
+
+COPY view_entry (id, "logAnalysis_id", name, entry_type, average, micros, times) FROM stdin;
+7969	45	TestPlan_EnablePlan	page	4.67799999999999994	3760.9380000000001	100
+7970	45	CaseRun_BulkAddComments	page	0.762000000000000011	97.5259999999999962	128
+7971	45	TestPlan_Printable	page	13.9030000000000005	222.442000000000007	8
+7972	45	TestPlan_MyPlan	page	1.03200000000000003	516.071000000000026	71
+7973	45	TestCase_Open	page	1.20799999999999996	20434.1219999999994	3266
+7974	45	TestCase_StatusUpdate	page	0.635000000000000009	485.25	382
+7975	45	@TestRun_Save	page	0.865999999999999992	568.355000000000018	131
+7976	45	TestRun_Filter	page	0.550000000000000044	3739.80299999999988	3182
+7977	45	@TestPlan_Cases_Filter	page	0.793000000000000038	2187.6260000000002	710
+7978	45	Reporting_CR_OpenCustomReport	page	0.569999999999999951	6.8360000000000003	6
+7979	45	TestPlan_LoadMoreReviewingCases	page	0.582999999999999963	102.582999999999998	58
+7980	45	SearchRuns_Open	page	1.50099999999999989	564.5	94
+7981	45	SearchCases_Search	page	2.71700000000000008	206.52600000000001	38
+7982	45	TestCase_AttachmentUpload	page	1.00099999999999989	24.0339999999999989	12
+7983	45	TestPlan_Cases_Case_Remove	page	1.01200000000000001	72.8439999999999941	14
+7984	45	Reporting_OR_Builds	page	124.028000000000006	2480.56899999999996	20
+7985	45	TestCase_Save	page	2.0990000000000002	2392.32400000000007	570
+7986	45	TestRun_EditSave	page	0.945999999999999952	200.641999999999996	106
+7987	45	TestPlan_Attachment_Delete	page	0.211999999999999994	1.69300000000000006	8
+7988	45	TestPlan_Cases_Case_Save	page	1.02299999999999991	143.223000000000013	35
+7989	45	SearchPlans_Open	page	0.621999999999999997	310.858000000000004	71
+7990	45	TestCase_ClonePage	page	0.705999999999999961	33.9110000000000014	12
+7991	45	Reporting_TR_OpenTestingReport	page	32.5090000000000003	1170.31400000000008	7
+7992	45	TestPlan LoadMoreCases	page	0.582999999999999963	102.582999999999998	58
+7993	45	TestPlan_CloneSave	page	1.78800000000000003	7.1509999999999998	1
+7994	45	TestRun_MyRuns	page	1.99500000000000011	750.245000000000005	94
+7995	45	TestRun_Open	page	0.550000000000000044	3739.80299999999988	3208
+7996	45	TestCase_WriteNew	page	0.70499999999999996	107.179000000000002	38
+7997	45	TestPlan_Cases_Case_WriteNew	page	0.70499999999999996	107.179000000000002	38
+7998	45	TestRun_Cases_AddUpdate	page	0.728999999999999981	72.9500000000000028	50
+7999	45	TestPlan_Clone_100cases	page	0.96599999999999997	3.8620000000000001	1
+8000	45	TestRun_Export	page	0.287999999999999978	1.15399999999999991	4
+8001	45	TestPlan_Clone	page	0.96599999999999997	3.8620000000000001	1
+8002	45	TestCase_Save_new	page	1.02299999999999991	143.223000000000013	35
+8003	45	TestRun_Cases_Remove	page	1.37400000000000011	71.4380000000000024	52
+8004	45	@TestPlan_LoadMoreCases	page	0.582999999999999963	102.582999999999998	58
+8005	45	TestCase_AttachmentAdd	page	0.270000000000000018	11.8970000000000002	38
+8006	45	TestRun_Cases_Add	page	7.08000000000000007	1387.59999999999991	98
+8007	45	TestRun_Save	page	0.865999999999999992	568.355000000000018	131
+8008	45	Reporting_OR_OpenOverallReport	page	0.755000000000000004	12.0809999999999995	16
+8009	45	TestCase_Edit	page	0.580999999999999961	703.904999999999973	606
+8010	45	TestPlan_DisablePlan	page	4.67799999999999994	3760.9380000000001	100
+8011	45	TestRun_Report	page	0.67000000000000004	37.5120000000000005	56
+8012	45	TestPlan_Cases_Case_Clone	page	3.31199999999999983	158.954000000000008	12
+8013	45	TestPlan_Cases_Run_Save	page	0.865999999999999992	568.355000000000018	131
+8014	45	Reporting_OR_Product	page	172.578000000000003	3451.56800000000021	20
+8015	45	TestPlan_CloneSave_100cases	page	1.78800000000000003	7.1509999999999998	1
+8016	45	TestPlan_Cases_Status	page	1.42799999999999994	1090.80999999999995	382
+8017	45	@TestPlan_Printable_100cases	page	13.9030000000000005	222.442000000000007	8
+8018	45	SearchCases_Open	page	0.629000000000000004	47.7749999999999986	38
+8019	45	TestPlan_Cases_Case_SetSortNumber	page	3.29499999999999993	2649.16800000000012	100
+8020	45	TestPlan_Cases_Priority	page	3.29499999999999993	2649.16800000000012	100
+8021	45	AdvanceSearch_Open	page	0.854999999999999982	78.6389999999999958	23
+8022	45	Reporting_OR_Versions	page	133.396999999999991	533.586999999999989	2
+8023	45	TestCase_Clone	page	2.98799999999999999	143.427999999999997	12
+8024	45	Reporting_OR_VersionDetail	page	133.396999999999991	533.586999999999989	2
+8025	45	TestPlan_Cases_Case_AddCaseFromOtherPlan_AddSelectCases	page	2.39500000000000002	172.405000000000001	14
+8026	45	TestPlan_Open	page	2.17499999999999982	43.5080000000000027	0
+8027	45	TestRun_BuilkUpdateStatus	page	3.05200000000000005	2454.07999999999993	100
+8028	45	GET/environment/properties/values	url	0.338000000000000023	16.2010000000000005	48
+8029	45	POST/run/new	url	0.865999999999999992	568.355000000000018	656
+8030	45	GET/environment/groups	url	0.922000000000000042	3.68599999999999994	4
+8031	45	GET/runs	url	1.50099999999999989	564.500999999999976	376
+8032	45	GET/report/product/idnumber/overview	url	172.578000000000003	3451.56800000000021	20
+8033	45	POST/admin/auth/user/idnumber	url	3.72699999999999987	14.9060000000000006	4
+8034	45	GET/search	url	0.160000000000000003	39.0140000000000029	244
+8035	45	GET/report/overall	url	0.755000000000000004	12.0809999999999995	16
+8036	45	GET/plan/idnumber/planName	url	0.470999999999999974	1398.50099999999998	2972
+8037	45	GET/run/idnumber/changestatus	url	2.06300000000000017	957.255999999999972	464
+8038	45	GET/xmlrpc	url	1.34200000000000008	32.1980000000000004	24
+8039	45	GET/case/new	url	0.524000000000000021	79.722999999999999	152
+8040	45	GET/management/getinfo	url	0.873999999999999999	1335.38000000000011	1528
+8041	45	POST/case/new	url	0.465000000000000024	65.0729999999999933	140
+8042	45	GET/environment/properties	url	0.507000000000000006	4.05900000000000016	8
+8043	45	GET/static/js/lib/tinymce/jscripts/tiny_mce/plugins/advlink/link@htm	url	0.180999999999999994	2.16699999999999982	12
+8044	45	POST/run/idnumber/clone	url	0.968999999999999972	166.632000000000005	172
+8045	45	GET/report/product/idnumber/build	url	124.028000000000006	2480.56899999999996	20
+8046	45	GET/plan/idnumber/cases	url	0.949999999999999956	3.79899999999999993	4
+8047	45	GET/case/idnumber/history	url	0.359999999999999987	4.31799999999999962	12
+8048	45	POST/run/idnumber/edit	url	0.396000000000000019	84.0480000000000018	212
+8049	45	GET/	url	0.325000000000000011	158.807999999999993	488
+8050	45	GET/plan/idnumber	url	0.172999999999999987	3.46799999999999997	20
+8051	45	POST/ajax/update/cases-case-status	url	0.212999999999999995	4.26799999999999979	20
+8052	45	GET/run/idnumber/percent	url	0.195000000000000007	65.3629999999999995	336
+8053	45	POST/cases	url	0.793000000000000038	2187.62699999999995	2760
+8054	45	GET/case/idnumber	url	0.650000000000000022	10991.3359999999993	16916
+8055	45	GET/management/deletefile/idnumber	url	0.211999999999999994	1.69300000000000006	8
+8056	45	POST/cases/load-more	url	0.582999999999999963	102.582999999999998	176
+8057	45	GET/ajax/update	url	0.833999999999999964	813.671000000000049	976
+8058	45	POST/ajax/update/case-status	url	0.635000000000000009	485.250999999999976	764
+8059	45	GET/run/idnumber/export	url	0.287999999999999978	1.15399999999999991	4
+8060	45	POST/xmlrpc	url	0.619999999999999996	270422.717999999993	436012
+8061	45	POST/plans/clone	url	0.256000000000000005	1.02499999999999991	4
+8062	45	GET/run/idnumber	url	0.550000000000000044	3739.80400000000009	6800
+8063	45	GET/caserun/update-bugs-for-many	url	0.336000000000000021	30.911999999999999	92
+8064	45	GET/report/product/idnumber/version	url	133.396999999999991	533.586999999999989	4
+8065	45	POST/run/idnumber/assigncase	url	0.179999999999999993	17.9529999999999994	100
+8066	45	GET/case/idnumber/caserun-detail-pane	url	0.299999999999999989	3858.08800000000019	12844
+8067	45	POST/run/idnumber/removecaserun	url	0.823999999999999955	42.8389999999999986	52
+8068	45	GET/report/custom/details	url	18.3279999999999994	293.247000000000014	16
+8069	45	GET/runs/clone	url	1	12.0050000000000008	12
+8070	45	GET/run/idnumber/delete	url	0.214999999999999997	14.5909999999999993	68
+8071	45	GET/case/idnumber/edit	url	0.400000000000000022	484.978999999999985	1212
+8072	45	GET/caserun/comment-many	url	0.211999999999999994	27.129999999999999	128
+8073	45	GET/advance-search	url	0.674000000000000044	62.0210000000000008	92
+8074	45	GET/case/idnumber/bug	url	0.0539999999999999994	0.216999999999999998	4
+8075	45	GET/plan/new	url	0.370999999999999996	1.4830000000000001	4
+8076	45	GET/cases/clone	url	0.705999999999999961	33.9110000000000014	48
+8077	45	GET/cases/search	url	0.629000000000000004	47.7749999999999986	76
+8078	45	POST/run/idnumber/update	url	1.68199999999999994	40.3759999999999977	24
+8079	45	GET/caseruns	url	42.0649999999999977	504.781999999999982	12
+8080	45	GET/management/tags	url	0.247999999999999998	1255.26999999999998	5056
+8081	45	GET/case/idnumber/readonly-pane	url	0.221000000000000002	224.105999999999995	1016
+8082	45	GET/admin/auth/user/idnumber	url	0.151999999999999996	0.607999999999999985	4
+8083	45	GET/case/idnumber/caserun-simple-pane	url	0.086999999999999994	13.1799999999999997	152
+8084	45	POST/comments/post	url	0.655000000000000027	387.502999999999986	592
+8085	45	GET/plans	url	0.441000000000000003	220.542000000000002	500
+8086	45	GET/admin/auth/user	url	1.07600000000000007	8.60699999999999932	8
+8087	45	GET/case/idnumber/plan	url	0.309999999999999998	950.908999999999992	3068
+8088	45	GET/cases	url	3.02099999999999991	253.762	84
+8089	45	GET/case/idnumber/caserun-list-pane	url	0.627000000000000002	240.692000000000007	384
+8090	45	GET/plans/clone	url	0.96599999999999997	3.8620000000000001	4
+8091	45	GET/runs/env_value	url	0.237999999999999989	1.89999999999999991	8
+8092	45	GET/admin/management/testbuild/add	url	0.742999999999999994	23.7630000000000017	32
+8093	45	GET/caserun/idnumber/bug	url	0.180999999999999994	165.109000000000009	912
+8094	45	POST/case/idnumber/edit	url	0.891000000000000014	1015.23199999999997	1140
+8095	45	GET/case/idnumber/attachment	url	0.270000000000000018	11.8970000000000002	44
+8096	45	GET/plans/component	url	0.309999999999999998	592.557000000000016	1912
+8097	45	GET/plans/ajax	url	0.409999999999999976	73.8769999999999953	180
+8098	45	POST//xmlrpc	url	3.99299999999999988	159.733000000000004	40
+8099	45	GET/admin/jsi18n	url	0.180999999999999994	10.1150000000000002	56
+8100	45	GET/run/idnumber/report	url	0.67000000000000004	37.5129999999999981	56
+8101	45	POST/admin/management/testbuild/add	url	0.246999999999999997	2.95999999999999996	12
+8102	45	GET/cases/printable	url	13.9030000000000005	222.442000000000007	16
+8103	45	POST/management/uploadfile	url	0.730999999999999983	17.5450000000000017	24
+8104	45	POST/ajax/update	url	2.50199999999999978	2011.904	804
+8105	45	POST/plan/idnumber/planName	url	0.271000000000000019	3.25199999999999978	12
+8106	45	GET/report/testing	url	32.328000000000003	1163.8119999999999	36
+8107	45	GET/management/checkfile/idnumber	url	0.975999999999999979	19.5189999999999984	20
+8108	45	GET/admin/xmlrpc/xmlrpclog	url	4.95999999999999996	19.8389999999999986	4
+8109	45	GET/runs/ajax	url	0.493999999999999995	211.432999999999993	428
+8110	45	GET/accounts/username/recent	url	0.76100000000000001	569.256999999999948	748
+8111	45	GET/run/idnumber/assigncase	url	7.08000000000000007	1387.59999999999991	196
+8112	45	GET/jsi18n	url	0.198000000000000009	685.966999999999985	3464
+8113	45	POST/plan/idnumber/cases	url	0.219	15.7750000000000004	72
+8114	45	GET/cases/ajax	url	2.08899999999999997	350.923999999999978	168
+8115	45	GET/report/custom	url	0.569999999999999951	6.8360000000000003	12
+8116	45	POST/ajax/update/case-run-status	url	1.44999999999999996	4837.16100000000006	3336
+8117	45	GET/admin/xmlrpc/xmlrpclog/idnumber	url	5.09400000000000031	20.3739999999999988	4
+8118	45	GET/run/idnumber/edit	url	0.480999999999999983	111.683999999999997	232
+8119	45	GET/admin/management	url	2.49199999999999999	9.96700000000000053	4
+8120	45	GET/accounts/username/profile	url	0.252000000000000002	2.01600000000000001	8
+8121	45	GET/ajax/get-prod-relate-obj	url	0.260000000000000009	31.2420000000000009	120
+8122	45	POST/cases/clone	url	1.78000000000000003	85.4449999999999932	48
+8123	45	GET/case/idnumber/review-pane	url	0.283999999999999975	230.663000000000011	812
+\.
+
+
+--
+-- Name: view_entry_id_seq; Type: SEQUENCE SET; Schema: public; Owner: redhat
+--
+
+SELECT pg_catalog.setval('view_entry_id_seq', 8123, true);
+
+
+--
+-- Data for Name: view_loganalysis; Type: TABLE DATA; Schema: public; Owner: redhat
+--
+
+COPY view_loganalysis (id, name, project, manipulate_time, start_time, end_time, page_config, query_config) FROM stdin;
+45	log_2014-07-15	TCMS	2014-07-15 13:25:26.424693+08	2014-07-14 00:00:00+08	2014-07-14 23:59:59+08	tcms 1.0	tcms 1.0
+\.
+
+
+--
+-- Name: view_loganalysis_id_seq; Type: SEQUENCE SET; Schema: public; Owner: redhat
+--
+
+SELECT pg_catalog.setval('view_loganalysis_id_seq', 45, true);
+
+
+--
+-- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: redhat; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions_group_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: redhat; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_key UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: redhat; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: redhat; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission_content_type_id_codename_key; Type: CONSTRAINT; Schema: public; Owner: redhat; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_key UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: redhat; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: redhat; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_user_id_group_id_key; Type: CONSTRAINT; Schema: public; Owner: redhat; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_key UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: redhat; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: redhat; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: redhat; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_key UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: redhat; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: redhat; Tablespace: 
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type_app_label_model_key; Type: CONSTRAINT; Schema: public; Owner: redhat; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_key UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: redhat; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: redhat; Tablespace: 
+--
+
+ALTER TABLE ONLY django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: view_entry_pkey; Type: CONSTRAINT; Schema: public; Owner: redhat; Tablespace: 
+--
+
+ALTER TABLE ONLY view_entry
+    ADD CONSTRAINT view_entry_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: view_loganalysis_name_key; Type: CONSTRAINT; Schema: public; Owner: redhat; Tablespace: 
+--
+
+ALTER TABLE ONLY view_loganalysis
+    ADD CONSTRAINT view_loganalysis_name_key UNIQUE (name);
+
+
+--
+-- Name: view_loganalysis_pkey; Type: CONSTRAINT; Schema: public; Owner: redhat; Tablespace: 
+--
+
+ALTER TABLE ONLY view_loganalysis
+    ADD CONSTRAINT view_loganalysis_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_name_like; Type: INDEX; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE INDEX auth_group_name_like ON auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id; Type: INDEX; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_group_id ON auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id; Type: INDEX; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_permission_id ON auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id; Type: INDEX; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE INDEX auth_permission_content_type_id ON auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_group_id; Type: INDEX; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_group_id ON auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_user_id; Type: INDEX; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_user_id ON auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_permission_id; Type: INDEX; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_permission_id ON auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id; Type: INDEX; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_user_id ON auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_user_username_like; Type: INDEX; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE INDEX auth_user_username_like ON auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: django_admin_log_content_type_id; Type: INDEX; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_content_type_id ON django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id; Type: INDEX; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_user_id ON django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_expire_date; Type: INDEX; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE INDEX django_session_expire_date ON django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_like; Type: INDEX; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE INDEX django_session_session_key_like ON django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: view_entry_logAnalysis_id; Type: INDEX; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE INDEX "view_entry_logAnalysis_id" ON view_entry USING btree ("logAnalysis_id");
+
+
+--
+-- Name: view_loganalysis_name_like; Type: INDEX; Schema: public; Owner: redhat; Tablespace: 
+--
+
+CREATE INDEX view_loganalysis_name_like ON view_loganalysis USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_permission_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: redhat
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_permission_id_fkey FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: redhat
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_fkey FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions_permission_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: redhat
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_permission_id_fkey FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: content_type_id_refs_id_93d2d1f8; Type: FK CONSTRAINT; Schema: public; Owner: redhat
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT content_type_id_refs_id_93d2d1f8 FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: content_type_id_refs_id_d043b34a; Type: FK CONSTRAINT; Schema: public; Owner: redhat
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT content_type_id_refs_id_d043b34a FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: group_id_refs_id_f4b32aac; Type: FK CONSTRAINT; Schema: public; Owner: redhat
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT group_id_refs_id_f4b32aac FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_40c41112; Type: FK CONSTRAINT; Schema: public; Owner: redhat
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT user_id_refs_id_40c41112 FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_4dc23c39; Type: FK CONSTRAINT; Schema: public; Owner: redhat
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT user_id_refs_id_4dc23c39 FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_c0d12874; Type: FK CONSTRAINT; Schema: public; Owner: redhat
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT user_id_refs_id_c0d12874 FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: view_entry_logAnalysis_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: redhat
+--
+
+ALTER TABLE ONLY view_entry
+    ADD CONSTRAINT "view_entry_logAnalysis_id_fkey" FOREIGN KEY ("logAnalysis_id") REFERENCES view_loganalysis(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

@@ -1,0 +1,13 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls admin_static admin_list %}
+{% block content %}
+<a href="/admin/view/loganalysis"><h1>go back to parent</h1></a>
+<div style="text-align:center">
+<embed type="image/svg+xml" style="width:80%;height=auto" src="{% static "page_times.svg" %}" />
+<embed type="image/svg+xml" style="width:80%;height=auto" src="{% static "page_average.svg" %}" />
+<embed type="image/svg+xml" style="width:80%;height=auto" src="{% static "page_micros.svg" %}" />
+<embed type="image/svg+xml" style="width:80%;height=auto" src="{% static "url_times.svg" %}" />
+<embed type="image/svg+xml" style="width:80%;height=auto" src="{% static "url_average.svg" %}" />
+<embed type="image/svg+xml" style="width:80%;height=auto" src="{% static "url_micros.svg" %}" />
+</div>
+{% endblock %}

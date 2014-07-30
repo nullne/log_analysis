@@ -1,0 +1,10 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls admin_static admin_list %}
+{% block content %}
+<a href="/admin/view/entry"><h1>go back to parent</h1></a>
+<div style="text-align:center">
+<embed type="image/svg+xml" style="width:80%;height=auto" src="{% static "times.svg" %}" />
+<embed type="image/svg+xml" style="width:80%;height=auto" src="{% static "average.svg" %}" />
+<embed type="image/svg+xml" style="width:80%;height=auto" src="{% static "micros.svg" %}" />
+</div>
+{% endblock %}

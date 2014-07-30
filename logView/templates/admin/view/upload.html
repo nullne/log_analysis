@@ -1,0 +1,43 @@
+{% extends "admin/base_site.html" %}
+{% block extra_head %}
+
+<link rel="stylesheet" type="text/css" href="/media/admin/css/forms.css"/>
+<link rel="stylesheet" type="text/css" href="/media/admin/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="/media/admin/css/global.css"/>
+<link rel="stylesheet" type="text/css" href="/media/admin/css/widgets.css"/>
+
+<script type="text/javascript" src="/admin/jsi18n/"></script>
+<script type="text/javascript" src="/media/admin/js/core.js"></script>
+<script type="text/javascript" src="/media/admin/js/admin/RelatedObjectLookups.js">
+{{ form.media }}
+{% endblock %}
+{% load i18n admin_urls admin_static admin_list %}
+{% block content %}
+        <h1>upload log and anayse</h1>
+        <p>
+        Note:
+            You can input a exist Project name listing as follows or just a new one.
+        </p>
+        <p style="margin-left:0px">
+        Available Porject name:&nbsp
+{% for item in project %}
+<strong>{{ item }},</strong>
+{% endfor %}
+</p>
+
+        <form id="upload_form" method="post" action="/admin/view/loganalysis/upload/" enctype="multipart/form-data">
+
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+                {{ field }}
+            {% endfor %}
+
+            <input type="submit" name="submit" value="Analyse" />
+        </form>
+{% endblock %}
